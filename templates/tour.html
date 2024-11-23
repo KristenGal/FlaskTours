@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<img src="{{tour.image_url}}" alt="image for {{tour.title}}">
+<h2>{{tour.title}} - {{tour.price}} грн</h2>
+<ul>
+    <h3>{{tour.description}}</h3>
+</ul>
+{% if tour.is_booked %}
+    <h2>Заброньовано</h2>
+{% else %}
+    <h2>Вільно</h2>
+{% endif %}
+
+{% endblock %}
