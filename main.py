@@ -21,21 +21,20 @@ def tour(tour_id):
 @app.post('/add_tour/')
 def add_tour():
     data = request.get_json()
-    if data.get("title"):
-        if data.get("price"):
-            if data.get("description"):
-                tour = Tour(title=data.get("title"), 
-                            price=data.get("price"), 
-                            description=data.get("description"))
-                db.session.add(tour)
-                db.session.commit()
-            else:
-                return jsonify({"error": "Enter the description"})
-        else:
-            return jsonify({"error": "Enter the price (number)"})
-    else:
+
+    if not data.get("title"):
         return jsonify({"error": "Enter the title"})
+    elif not data.get("price"):
+        return jsonify({"error": "Enter the price (number)"})
+    elif not data.get("description"):
+        return jsonify({"error": "Enter the description"})
     
+    tour = Tour(title=data.get("title"), 
+                price=data.get("price"), 
+                description=data.get("description"))
+    db.session.add(tour)
+    db.session.commit()
+
 
 if __name__ == "__main__":
     app.run(debug=True)
